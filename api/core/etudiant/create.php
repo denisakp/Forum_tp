@@ -6,27 +6,16 @@
 
   include_once '../config/Database.php';
   include_once '../models/Etudiant.php';
-
-  $bdd = new Database();
-  $db = $bdd->connect();
-
-  $etudiant = new Etudiant($db);
-
-  $data = json_decode(file_get_contents("php://input"));
   
-  $etudiant->matricule = $data->matricule;
-  $etudiant->nom = $data->nom;
-  $etudiant->prenom = $data->prenom;
-  $etudiant->pseudo = $data->pseudo;
-  $etudiant->motdepasse = $data->motdepasse;
-  $etudiant->filiere = $data->filiere;
+$nom = $_POST['nom'];
+$prenom = $_POST['prenom'];
+$pseudo = $_POST['pseudo'];
+$motdepasse= $_POST['motdepasse'];
+$filiere = $_POST['filiere'];
 
-  if($etudiant->ajouter()){
-      echo json_encode(array(
-          'message' => 'Etudiant ajouter avec succes'
-      ));
-  }else{
-      echo json_encode(array(
-          'message' => 'Etudiant non ajoutee'
-      ));
-  }
+$etudiant = new Etudiant($nom, $prenom, $pseudo, $motdepasse, $filiere);
+if($etudiant->addEtudiant()){
+    echo 'succes';
+}else{
+    echo 'error';
+}

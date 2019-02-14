@@ -182,8 +182,8 @@ class Etudiant {
 
 
     /**
-     * Fonction updateEtudiant
-     * Cette fonction permet de mettre à jour un étudiant
+     * Fonction updateEtudiant:
+     * cette fonction permet de mettre à jour un étudiant
      * @return boolean 
      */
     public function updateEtudiant(Etudiant $etudiant, $matricule){

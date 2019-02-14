@@ -58,40 +58,34 @@ class Etudiant {
 
     /**
      * Getter de la proprieté nom
+     * @return string nom
      */
-    public function getNom(){
-        return $this->nom;
-    }
+    public function getNom(){return $this->nom;}
 
     /**
      * Getter de la proprieté prenom
+     * @return string prenom
      */
-    public function getPrenom(){
-        return $this->prenom;
-    }
+    public function getPrenom(){return $this->prenom;}
 
     /**
      * Getter de la proprieté Pseudo
+     * @return string pseudo
      */
 
-    public function getPseudo(){
-        return $this->pseudo;
-    }
+    public function getPseudo(){return $this->pseudo;}
 
     /**
-     * GEtter de la proprieté Motdepasse
+     * Getter de la proprieté Motdepasse
+     * @return string motdepasse
      */
-    public function getMotdepasse(){
-        return $this->motdepasse;
-    }
+    public function getMotdepasse(){return $this->motdepasse;}
 
 
     /**
      * Getter de la proprieté filière
      */
-    public function getFiliere(){
-        return $this->filiere;
-    }
+    public function getFiliere(){return $this->filiere;}
     
         /**
      * Fonction lire
@@ -117,7 +111,7 @@ class Etudiant {
 
     /**
      * Fonction Liste
-     * Cette fonction permet d'afficher une seule categorie
+     * Cette fonction permet d'afficher un seul etudiant
      * 
      * $con:il s'agit de la valeur retournée par la méthode connect de la classe Database
      * 
@@ -145,6 +139,17 @@ class Etudiant {
         return true;
     }
 
+    /**
+     * Fonction addEtudiant
+     * Cette fonction permet d'ajouter un nouvel étudiant
+     * 
+     * $con:il s'agit de la valeur retournée par la méthode connect de la classe Database
+     * 
+     * $sql: est la requete SQL qui sera exécuté
+     * 
+     * Si aucune erreur, elle retourne true, sinon elle retourne false
+     * @return boolean
+     */
     public function addEtudiant(Etudiant $etudiant){
         $con = Database::connect();
         $sql = 'INSERT INTO '.$this->table.' SET matricule = :matricule, nom = :nom, prenom = :prenom, pseudo = :pseudo, motdepasse = :motdepasse, filiere = :filiere ';
@@ -172,13 +177,6 @@ class Etudiant {
         }else{
             printf("Erreur: $s.\n", $stmt->error);
             return false;
-        }
-
-        $res = $stmt->execute();
-        if($res){
-            return true;
-        }else{
-            echo 'Erreur lors de la creation: ' . $stmt->error;
         }
     }
 }

@@ -87,7 +87,7 @@ class Etudiant {
      */
     public function getFiliere(){return $this->filiere;}
     
-        /**
+    /**
      * Fonction lire
      * Cette fonction permet d'afficher la liste des etudiants
      * 
@@ -173,6 +173,32 @@ class Etudiant {
         $fil = $etudiant->getFiliere();
 
         if($stmt->execute($sql)){
+            return true;
+        }else{
+            printf("Erreur: $s.\n", $stmt->error);
+            return false;
+        }
+    }
+
+
+    /**
+     * Fonction updateEtudiant
+     * Cette fonction permet de mettre à jour un étudiant
+     * @return boolean 
+     */
+    public function updateEtudiant(Etudiant $etudiant, $matricule){
+        $con = Database::connect();
+        $sql = 'UPDATE '.$this->table.' SET matricule = :matricule, nom = :nom, prenom = :prenom, pseudo = :pseudo, motdepasse = :motdepasse, filiere = :filiere ';
+        $stmt = $con->prepare($sql);
+
+        $stmt-> bindParam(':matricule', $this->matricule);
+        $stmt-> bindParam(':nom', $this->nom);
+        $stmt-> bindParam(':prenom', $this->prenom);
+        $stmt-> bindParam(':pseudo', $this->pseudo);
+        $stmt-> bindParam(':motdepasse', $this->motdepasse);
+        $stmt-> bindParam(':filiere', $this->filiere);
+
+        if($stmt->execute()){
             return true;
         }else{
             printf("Erreur: $s.\n", $stmt->error);

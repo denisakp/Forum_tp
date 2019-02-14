@@ -1,12 +1,17 @@
 <?php
 include_once 'config.php';
+
 /**
- * Fonction Database
- * Cette fonction permet de créer une connexion à la base de données, en utilisant PDO.
- * Si la connexion est effective alors la fonction retourne $db, sinon elle nous retourne une erreur PDO
- * @return $db
+ * Class Database
  */
+
 class Database{
+    /**
+    * Fonction Database
+    * Cette fonction permet de créer une connexion à la base de données, en utilisant PDO.
+    * Si la connexion est effective alors la fonction retourne $db, sinon elle nous retourne une erreur PDO
+    * @return $db
+    */
 
     public static function connect(){
         try {

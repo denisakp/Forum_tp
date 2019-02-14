@@ -18,9 +18,7 @@ class Categorie{
     /**
      * @param $nom string Non de la categorie à manipuler
      */
-    public function __construct($nom){
-        $this->libelle = $nom;
-    }
+    public function __construct(){}
 
     public function getLibelle(){
         return $this->libelle;
@@ -50,7 +48,10 @@ class Categorie{
         $con = Database::connect();
         $sql = "SELECT libelle_cat FROM categorie_disc";
         $stmt = $con->query($sql);
+        
         if($stmt){
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            echo json_encode ($data);
             return true;
         }else{
             return false;

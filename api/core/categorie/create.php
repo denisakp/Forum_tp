@@ -7,18 +7,22 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type
 include_once '../../config/Database.php';
 include_once '../../models/Categorie.php';
 
-if(isset($_POST)){
-    $libelle = $_POST["libelle_cat"];
-    $categorie = new Categorie($libelle);
-    if($categorie->ajouter($categorie)){
-        echo json_encode(
-            array('message' => 'succes',)
-        );
-        //echo "success";
-    }else{
-        echo json_encode(array(
-            'message' => 'Erreur'
-        ));
-    }
+// if(isset($_POST['creer'])){
+//     if(!empty($_POST['libelle_cat'])){
+//         $libelle = $_POST["libelle_cat"];
 
+//         $categorie = new Categorie($libelle);
+//         if($categorie->addCategorie($categorie)){
+//             echo 'success';
+//         }else{
+//             echo 'error';
+//         }
+//     }
+// }
+$libelle = $_POST["libelle_cat"];
+$categorie = new Categorie("",$libelle);
+if($categorie->addCategorie($categorie)){
+    echo 'success';
+}else{
+    echo 'error';
 }

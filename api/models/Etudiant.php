@@ -225,8 +225,31 @@ class Etudiant {
             printf("Erreur: $s.\n", $stmt->error);
             return false;
         }
-
      }
 
+     /**
+      * Fonction login: permet à un étudiant de se connecter 
+      *@return boolean
+      */
+     public function loginEtudiant(){
+         session_start();
+        if(isset($_POST['connexion'])){
+            if(!empty($_POST['pseudo']) && !empty($_POST['motdepasse'])){
+                $user = $_POST['pseudo'];
+                $mdp = $_POST['motdepasse'];
+
+                $con = Database::connect();
+                $sql = 'SELECT * FROM '.$this->table.' WHERE pseudo =:pseudo AND motdepasse =:motdepasse ';
+                $stmt = $con->prepare($sql);
+                $stmt-> bindParam(':pseudo', $user);
+                $stmt-> bindParam(':motdepase', $mdp);
+
+                //Executer la requete puis mettre les valeurs en session
+
+
+            }
+
+        }
+     }
 
 }

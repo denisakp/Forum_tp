@@ -10,7 +10,7 @@
 $nom = $_POST['nom'];
 $prenom = $_POST['prenom'];
 $pseudo = $_POST['pseudo'];
-$motdepasse= $_POST['motdepasse'];
+$motdepasse= password_hash($_POST['motdepasse'], PASSWORD_DEFAULT);
 $filiere = $_POST['filiere'];
 
 $etudiant = new Etudiant($nom, $prenom, $pseudo, $motdepasse, $filiere);

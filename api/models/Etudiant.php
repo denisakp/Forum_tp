@@ -156,10 +156,8 @@ class Etudiant {
         $stmt = $con->prepare($sql);
 
        //Pour eviter l'erreur de only variables should passed by reference
-    // $mat = NULL; 
        $nm = NULL; $pr = NULL; $ps = NULL; $mdp = NULL; $fil = NULL;
 
-    //  $stmt->bindParam('matricule', $mat);
         $stmt->bindParam('nom', $nm);
         $stmt->bindParam('prenom', $pr);
         $stmt->bindParam('pseudo', $ps);
@@ -172,7 +170,7 @@ class Etudiant {
         $mdp = $etudiant->getMotdepasse();
         $fil = $etudiant->getFiliere();
 
-        if($stmt->execute($sql)){
+        if($stmt->execute()){
             return true;
         }else{
             printf("Erreur: $s.\n", $stmt->error);

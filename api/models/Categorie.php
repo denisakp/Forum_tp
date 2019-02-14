@@ -18,7 +18,10 @@ class Categorie{
     /**
      * @param $nom string Non de la categorie à manipuler
      */
-    public function __construct(){}
+    public function __construct($id,$nom){
+        $this->libelle = $nom;
+        $this->id_cat = $id;
+    }
 
     public function getLibelle(){
         return $this->libelle;
@@ -102,9 +105,9 @@ class Categorie{
         $sql = "INSERT INTO categorie_disc SET libelle_cat = :libelle ";
         $stmt = $con->prepare($sql);
 
-        $lib = NULL; //Pour eviter l'erreur de only variables should passed by reference
+       $lib = NULL; //Pour eviter l'erreur de only variables should passed by reference
         $stmt->bindParam(':libelle', $lib);
-        $lib = $categorie->getLibelle();
+       $lib = $categorie->getLibelle();
 
         if($stmt->execute()){
             return true;

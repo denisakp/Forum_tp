@@ -46,7 +46,7 @@ class Categorie{
      * Si aucune erreur, elle retourne true, sinon elle retourne false
      * @return boolean
      */
-    public function liste(){
+    public function readAllCategorie(){
         $con = Database::connect();
         $sql = "SELECT libelle_cat FROM categorie_disc";
         $stmt = $con->query($sql);
@@ -68,7 +68,7 @@ class Categorie{
      * Si aucune erreur, elle retourne true, sinon elle retourne false
      * @return boolean
      */
-    public function uneCategorie(Categorie $categorie, $id_cat){
+    public function readOneCategorie(Categorie $categorie, $id_cat){
         $con = Database::connect();
         $sql = "SELECT id_cat FROM category_disc WHERE id_cat = ? ";
 
@@ -96,7 +96,7 @@ class Categorie{
      * Si aucune erreur, elle retourne true, sinon elle retourne false
      * @return boolean
      */
-    public function ajouter(Categorie $categorie){
+    public function addCategorie(Categorie $categorie){
         $con = Database::connect();
         $sql = "INSERT INTO categorie_disc SET libelle_cat = :libelle ";
         $stmt = $con->prepare($sql);
@@ -126,7 +126,7 @@ class Categorie{
      * Si aucune erreur, elle retourne true, sinon elle retourne false
      * @return boolean
      */
-    public function miseAjour(Categorie $categorie, $id_cat){
+    public function updateCategorie(Categorie $categorie, $id_cat){
         $con = Database::connect();
         $sql = "UPDATE categorie_disc SET libelle_cat = ? WHERE id_cat = ?";
         $stmt = $con->prepare($sql);
@@ -154,7 +154,7 @@ class Categorie{
      * Si aucune erreur, elle retourne true, sinon elle retourne false
      * @return boolean
      */
-    public function supprimer(Categorie $scategorie, $id_cat){
+    public function deleteCategorie(Categorie $scategorie, $id_cat){
         $con = Database::connect();
         $sql = "DELETE FROM categorie_disc WHERE id_cat = ?";
         $stmt = $con->prepare($sql);

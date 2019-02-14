@@ -5,15 +5,11 @@
   include_once '../../config/Database.php';
   include_once '../../models/Etudiant.php';
 
-  $etudiant = new Etudiant();
+  $etudiant = new Etudiant($nom, $prenom, $pseudo, $motdepasse, $filiere);
 
-  $res = $etudiant->lire();
-  $num = $res->rowCount();
-  if($num >0){
-      $res2 = $res->fetchAll(PDO::FETCH_ASSOC);
-      echo json_encode($res2);
+  $res = $etudiant->readAllEtudiant();
+  if($res){
+    echo 'succes';
   }else{
-      echo json_encode(
-          array('message' => 'Aucune information à afficher')
-      );
+      echo 'error';
   }

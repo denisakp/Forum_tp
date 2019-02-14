@@ -8,12 +8,18 @@
   $categorie = new Categorie();
 
   $res = $categorie->readAllCategorie();
-  $num = $res->rowCount();
-  if($num >0){
-      $res2 = $res->fetchAll(PDO::FETCH_ASSOC);
-      echo json_encode($res2);
+  if($res){
+      echo "succes";
   }else{
-      echo json_encode(
-          array('message' => 'Aucune information à afficher')
-      );
+      echo 'error';
   }
+
+ 
+//   if($num >0){
+//       $res2 = $res->fetchAll(PDO::FETCH_ASSOC);
+//       echo json_encode($res2);
+//   }else{
+//       echo json_encode(
+//           array('message' => 'Aucune information à afficher')
+//       );
+//   }

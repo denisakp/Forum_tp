@@ -7,7 +7,7 @@
 
   $categorie = new Categorie();
 
-  $res = $categorie->liste();
+  $res = $categorie->readAllCategorie();
   $num = $res->rowCount();
   if($num >0){
       $res2 = $res->fetchAll(PDO::FETCH_ASSOC);

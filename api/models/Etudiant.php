@@ -103,6 +103,8 @@ class Etudiant {
         $sql = 'SELECT * FROM '.$this->table.' ';
         $stmt = $con->query($sql);
         if($stmt){
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            echo json_encode($data);
             return true;
         }else{
             return false;

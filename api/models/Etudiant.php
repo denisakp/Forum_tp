@@ -205,4 +205,28 @@ class Etudiant {
             return false;
         }
     }
+
+    /**
+     * Fonction deleteEtudiant:
+     * cette fonction permet supprimer un étudiant
+     * @return boolean 
+     */
+
+     public function deleteEtudiant(Etudiant $etudiant, $matricule){
+        $con = Database::connect();
+        $sql = 'DELETE FROM '.$this->table.' WHERE matricule = ? ';
+
+        $stmt = $con->prepare($sql);
+        $stmt-> bindParam(1, $this->matricule);
+
+        if($stmt->execute()){
+            return true;
+        }else{
+            printf("Erreur: $s.\n", $stmt->error);
+            return false;
+        }
+
+     }
+
+
 }

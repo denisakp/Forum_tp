@@ -40,13 +40,44 @@ class Etudiant {
      * Constructeur de la classe Etudiant
      */
 
-    public function __construct($nom, $prenom, $pseudo, $motdepasse, $filiere){
-        $this->nom = $nom;
-        $this->prenom = $prenom;
-        $this->pseudo = $pseudo;
-        $this->motdepasse = $motdepasse;
-        $this->filiere = $filiere;
+    public function __construct(){
+        $args = func_get_args(); //any function that calls this method can take an arbitrary number of parameters
+        switch(func_num_args())
+        {
+            //delegate to helper methods
+        case 0:
+            $this->construct0();
+        break;
+        case 1:
+            $this->construct1($args[0]);
+        break;
+        case 6:
+            $this->construct2($args[0], $args[1], $args[2], $args[3], $args[4], $args[5]);
+        break;
+        default:
+            trigger_error('Nombre d\'arguments incorrect pour la classe Etudiant::__construct', E_USER_WARNING);
+        }
     }
+
+    private function construct0(){ }
+ 
+    private function construct1($matricule)
+    {
+        $this->matricule = $matricule;
+    }
+ 
+    private function construct2($matricule, $nom, $prenom, $pseudo, $motdepasse, $filiere)
+    {
+       $this->matricule = $matricule;
+       $this->nom = $nom;
+       $this->prenom = $prenom;
+       $this->pseudo = $pseudo;
+       $this->motdepasse = $motdepasse;
+       $this->filiere = $filiere;
+    }
+
+
+    
 
     public function __get($property){
         return $this->$property;

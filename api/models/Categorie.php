@@ -158,7 +158,7 @@ class Categorie{
      * Si aucune erreur, elle retourne true, sinon elle retourne false
      * @return boolean
      */
-    public function deleteCategorie(Categorie $scategorie, $id_cat){
+    public function deleteCategorie(Categorie $categorie, $id_cat){
         $con = Database::connect();
         $sql = "DELETE FROM categorie_disc WHERE id_cat = ?";
         $stmt = $con->prepare($sql);

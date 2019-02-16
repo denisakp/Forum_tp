@@ -44,12 +44,14 @@ class Categorie{
      * 
      * $sql: est la requete SQL qui sera exécuté
      * 
+     * On affichera que les resultats dont l'état est à 1
+     * 
      * Si aucune erreur, elle retourne true, sinon elle retourne false
      * @return boolean
      */
     public function readAllCategorie(){
         $con = Database::connect();
-        $sql = "SELECT libelle_cat FROM categorie_disc";
+        $sql = "SELECT libelle_cat FROM categorie_disc WHERE etat = '1' ";
         $stmt = $con->query($sql);
         
         if($stmt){
@@ -69,12 +71,14 @@ class Categorie{
      * 
      * $sql: est la requete SQL qui sera exécuté
      * 
+     * On affichera le resultat que si l'état est à 1
+     * 
      * Si aucune erreur, elle retourne true, sinon elle retourne false
      * @return boolean
      */
     public function readOneCategorie(Categorie $categorie, $id_cat){
         $con = Database::connect();
-        $sql = "SELECT id_cat FROM category_disc WHERE id_cat = ? ";
+        $sql = "SELECT id_cat FROM category_disc WHERE id_cat = ? AND etat = '1' ";
 
         $stmt = $con->prepare($sql);
         $smt-> binParam(1, $this->id_cat);
@@ -102,7 +106,7 @@ class Categorie{
      */
     public function addCategorie(Categorie $categorie){
         $con = Database::connect();
-        $sql = "INSERT INTO categorie_disc SET libelle_cat = :libelle ";
+        $sql = "INSERT INTO categorie_disc SET libelle_cat = :libelle, etat = '1' ";
         $stmt = $con->prepare($sql);
 
        $lib = NULL; //Pour eviter l'erreur de only variables should passed by reference
@@ -130,9 +134,9 @@ class Categorie{
      * Si aucune erreur, elle retourne true, sinon elle retourne false
      * @return boolean
      */
-    public function updateCategorie(Categorie $categorie, $id_cat){
+    public function updateCategorie(Categorie $categorie){
         $con = Database::connect();
-        $sql = "UPDATE categorie_disc SET libelle_cat = ? WHERE id_cat = ?";
+        $sql = "UPDATE categorie_disc SET libelle_cat = ? WHERE id_cat = ? AND etat = '1' ";
         $stmt = $con->prepare($sql);
         $stmt-> bindParam(1, $this->libelle);
         $stmt-> bindParam(2, $this->id_cat);
@@ -153,14 +157,15 @@ class Categorie{
      * 
      * $sql: est la requete SQL qui sera exécuté
      * 
-     * La fonction prend en paramètre un objet categorie et un id de la categorie à supprimer
+     * La fonction prend en paramètre un objet categorie et un id de la categorie à supprimer.
+     * Pour des raisons de traçabilité, on modifie juste l'état de l'enregistrement qui passe à 0
      * 
      * Si aucune erreur, elle retourne true, sinon elle retourne false
      * @return boolean
      */
-    public function deleteCategorie(Categorie $categorie, $id_cat){
+    public function deleteCategorie(Categorie $categorie){
         $con = Database::connect();
-        $sql = "DELETE FROM categorie_disc WHERE id_cat = ?";
+        $sql = "UPDATE categorie_disc SET etat = '0' WHERE id_cat = ?";
         $stmt = $con->prepare($sql);
         $stmt-> bindParam(1, $this->id_cat);
 

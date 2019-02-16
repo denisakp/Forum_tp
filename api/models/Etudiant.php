@@ -53,6 +53,9 @@ class Etudiant {
             case 1:
                 $this->construct1($args[0]); //un seul paramètre (utilisé pour les méthodes de recherches)
             break;
+            case 2:
+                $this->construct3($args[0], $args[1]); //Deux paramètres (utilisé pour le login)
+            break;
             case 6:
                 $this->construct2($args[0], $args[1], $args[2], $args[3], $args[4], $args[5]); //Tous les paramètres (utilisé pour les autres méthodes)
             break;
@@ -78,8 +81,10 @@ class Etudiant {
        $this->filiere = $filiere;
     }
 
-
-    
+    private function construct3($pseudo, $motdepasse){
+        $this->pseudo = $pseudo;
+        $this->motdepasse = $motdepasse;
+    }
 
     public function __get($property){
         return $this->$property;
@@ -270,15 +275,15 @@ class Etudiant {
 
      public function loginEtudiant(Etudiant $etudiant){
         $con = Database::connect();
-        $sql = 'SELECT * FROM '.$this->table.' WHERE pseudo = :pseudo ';
+        $sql = 'SELECT * FROM '.$this->table.' WHERE pseudo = ? ';
         $stmt = $con->prepare($sql);
 
         $ps = NULL; $mdp = NULL;
-        $stmt-> bindParam(':pseudo', $ps);
+        $stmt-> bindParam(1, $ps);
         $stmt->execute();
 
-        $etu = $stmt->fetch();
-        if($etu && password_verify($mdp,$etu['motdepasse'])){
+        $etu = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($etu['pseudo'] && password_verify($mdp, $etu['motdepasse'])){
             return true;
         }else{
             return false;

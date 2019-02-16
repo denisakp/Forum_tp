@@ -227,7 +227,7 @@ class Etudiant {
      * cette fonction permet de mettre à jour un étudiant
      * @return boolean 
      */
-    public function updateEtudiant(Etudiant $etudiant, $matricule){
+    public function updateEtudiant(Etudiant $etudiant){
         $con = Database::connect();
         $sql = 'UPDATE '.$this->table.' SET matricule = :matricule, nom = :nom, prenom = :prenom, pseudo = :pseudo, motdepasse = :motdepasse, filiere = :filiere ';
         $stmt = $con->prepare($sql);

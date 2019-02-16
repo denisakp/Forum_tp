@@ -5,7 +5,7 @@
   include_once '../../config/Database.php';
   include_once '../../models/Etudiant.php';
 
-  $etudiant = new Etudiant($nom, $prenom, $pseudo, $motdepasse, $filiere);
+  $etudiant = new Etudiant();
 
   $res = $etudiant->readAllEtudiant();
   if($res){

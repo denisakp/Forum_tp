@@ -275,15 +275,16 @@ class Etudiant {
 
      public function loginEtudiant(Etudiant $etudiant){
         $con = Database::connect();
-        $sql = 'SELECT * FROM '.$this->table.' WHERE pseudo = ? ';
+        $sql = 'SELECT * FROM '.$this->table.' WHERE pseudo = :pseudo ';
         $stmt = $con->prepare($sql);
 
-        $ps = NULL; $mdp = NULL;
-        $stmt-> bindParam(1, $ps);
+        // $ps = NULL; $mdp = NULL;
+        $stmt-> bindParam(':pseudo', $etudiant->getPseudo());
         $stmt->execute();
 
-        $etu = $stmt->fetch(PDO::FETCH_ASSOC);
-        if($etu['pseudo'] && password_verify($mdp, $etu['motdepasse'])){
+        $etu = $stmt->fetch(PDO::FETCH_OBJ);
+       
+        if($etu && password_verify($etudiant->getMotdepasse(), $etu->motdepasse)){
             return true;
         }else{
             return false;

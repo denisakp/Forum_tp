@@ -278,13 +278,16 @@ class Etudiant {
         $sql = 'SELECT * FROM '.$this->table.' WHERE pseudo = :pseudo ';
         $stmt = $con->prepare($sql);
 
-        // $ps = NULL; $mdp = NULL;
-        $stmt-> bindParam(':pseudo', $etudiant->getPseudo());
+        $ps = NULL; $mdp = NULL;
+        $stmt-> bindParam(':pseudo', $ps);
+        
+        $ps = $etudiant->getPseudo();
+        $mdp = $etudiant->getMotdepasse();
         $stmt->execute();
 
         $etu = $stmt->fetch(PDO::FETCH_OBJ);
        
-        if($etu && password_verify($etudiant->getMotdepasse(), $etu->motdepasse)){
+        if($etu && password_verify($mdp, $etu->motdepasse)){
             return true;
         }else{
             return false;

@@ -88,6 +88,12 @@ class Etudiant {
     }
 
     /**
+     * Getter de la proprieté matricule
+     * @return string $matricule
+     */
+    public function getMatricule(){return $this->matricule;}
+
+    /**
      * Getter de la proprieté nom
      * @return string nom
      */
@@ -185,20 +191,22 @@ class Etudiant {
      */
     public function addEtudiant(Etudiant $etudiant){
         $con = Database::connect();
-        $sql = 'INSERT INTO '.$this->table.' SET matricule = :matricule, nom = :nom, prenom = :prenom, pseudo = :pseudo, motdepasse = :motdepasse, filiere = :filiere ';
+        $sql = 'INSERT INTO '.$this->table.' SET matricule = :matricule, nom = :nom, prenom = :prenom, pseudo = :pseudo, motdepasse = :motdepasse, filiere = :filiere, etat = 1 ';
         $stmt = $con->prepare($sql);
 
        //Pour eviter l'erreur de only variables should passed by reference
-       $nm = NULL; $pr = NULL; $ps = NULL; $mdp = NULL; $fil = NULL;
+       $mat = NULL; $nm = NULL; $pr = NULL; $ps = NULL; $mdp = NULL; $fil = NULL;
 
-        $stmt->bindParam('nom', $nm);
-        $stmt->bindParam('prenom', $pr);
-        $stmt->bindParam('pseudo', $ps);
-        $stmt->bindParam('motdepasse', $mdp);
-        $stmt->bindParam('filiere', $fil);
+        $stmt->bindParam(':matricule', $mat);
+        $stmt->bindParam(':nom', $nm);
+        $stmt->bindParam(':prenom', $pr);
+        $stmt->bindParam(':pseudo', $ps);
+        $stmt->bindParam(':motdepasse', $mdp);
+        $stmt->bindParam(':filiere', $fil);
 
+        $mat = $etudiant->getMatricule();
         $nm = $etudiant->getNom();
-        $pre = $etudiant->getPrenom();
+        $pr = $etudiant->getPrenom();
         $ps = $etudiant->getPseudo();
         $mdp = $etudiant->getMotdepasse();
         $fil = $etudiant->getFiliere();

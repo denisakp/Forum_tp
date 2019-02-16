@@ -38,15 +38,48 @@ class Etudiant {
 
     /**
      * Constructeur de la classe Etudiant
+     * 
+     * 
      */
 
-    public function __construct($nom, $prenom, $pseudo, $motdepasse, $filiere){
-        $this->nom = $nom;
-        $this->prenom = $prenom;
-        $this->pseudo = $pseudo;
-        $this->motdepasse = $motdepasse;
-        $this->filiere = $filiere;
+    public function __construct(){
+        $args = func_get_args(); //Toute fonction qui appelle cette méthode peut prendre arbitrairemrnt un nombre de paramètres définis
+        
+        switch(func_num_args())
+        {
+            case 0:
+                $this->construct0(); //Aucun paramètre (utilisé pour les métodes read)
+            break;
+            case 1:
+                $this->construct1($args[0]); //un seul paramètre (utilisé pour les méthodes de recherches)
+            break;
+            case 6:
+                $this->construct2($args[0], $args[1], $args[2], $args[3], $args[4], $args[5]); //Tous les paramètres (utilisé pour les autres méthodes)
+            break;
+            default:
+                trigger_error('Nombre d\'arguments incorrect pour la classe Etudiant::__construct', E_USER_WARNING);
+        }
     }
+
+    private function construct0(){ }
+ 
+    private function construct1($matricule)
+    {
+        $this->matricule = $matricule;
+    }
+ 
+    private function construct2($matricule, $nom, $prenom, $pseudo, $motdepasse, $filiere)
+    {
+       $this->matricule = $matricule;
+       $this->nom = $nom;
+       $this->prenom = $prenom;
+       $this->pseudo = $pseudo;
+       $this->motdepasse = $motdepasse;
+       $this->filiere = $filiere;
+    }
+
+
+    
 
     public function __get($property){
         return $this->$property;
@@ -55,6 +88,12 @@ class Etudiant {
     public function __set($property, $value){
         $this->$property = $value;
     }
+
+    /**
+     * Getter de la proprieté matricule
+     * @return string $matricule
+     */
+    public function getMatricule(){return $this->matricule;}
 
     /**
      * Getter de la proprieté nom
@@ -154,20 +193,22 @@ class Etudiant {
      */
     public function addEtudiant(Etudiant $etudiant){
         $con = Database::connect();
-        $sql = 'INSERT INTO '.$this->table.' SET matricule = :matricule, nom = :nom, prenom = :prenom, pseudo = :pseudo, motdepasse = :motdepasse, filiere = :filiere ';
+        $sql = 'INSERT INTO '.$this->table.' SET matricule = :matricule, nom = :nom, prenom = :prenom, pseudo = :pseudo, motdepasse = :motdepasse, filiere = :filiere, etat = 1 ';
         $stmt = $con->prepare($sql);
 
        //Pour eviter l'erreur de only variables should passed by reference
-       $nm = NULL; $pr = NULL; $ps = NULL; $mdp = NULL; $fil = NULL;
+       $mat = NULL; $nm = NULL; $pr = NULL; $ps = NULL; $mdp = NULL; $fil = NULL;
 
-        $stmt->bindParam('nom', $nm);
-        $stmt->bindParam('prenom', $pr);
-        $stmt->bindParam('pseudo', $ps);
-        $stmt->bindParam('motdepasse', $mdp);
-        $stmt->bindParam('filiere', $fil);
+        $stmt->bindParam(':matricule', $mat);
+        $stmt->bindParam(':nom', $nm);
+        $stmt->bindParam(':prenom', $pr);
+        $stmt->bindParam(':pseudo', $ps);
+        $stmt->bindParam(':motdepasse', $mdp);
+        $stmt->bindParam(':filiere', $fil);
 
+        $mat = $etudiant->getMatricule();
         $nm = $etudiant->getNom();
-        $pre = $etudiant->getPrenom();
+        $pr = $etudiant->getPrenom();
         $ps = $etudiant->getPseudo();
         $mdp = $etudiant->getMotdepasse();
         $fil = $etudiant->getFiliere();

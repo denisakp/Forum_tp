@@ -267,4 +267,21 @@ class Etudiant {
             return false;
         }
      }
+
+     public function loginEtudiant(Etudiant $etudiant){
+        $con = Database::connect();
+        $sql = 'SELECT * FROM '.$this->table.' WHERE pseudo = :pseudo ';
+        $stmt = $con->prepare($sql);
+
+        $ps = NULL; $mdp = NULL;
+        $stmt-> bindParam(':pseudo', $ps);
+        $stmt->execute();
+
+        $etu = $stmt->fetch();
+        if($etu && password_verify($mdp,$etu['motdepasse'])){
+            return true;
+        }else{
+            return false;
+        }
+     }
 }

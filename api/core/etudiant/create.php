@@ -15,7 +15,7 @@ $motdepasse= password_hash($_POST['motdepasse'], PASSWORD_DEFAULT);
 $filiere = $_POST['filiere'];
 
 $etudiant = new Etudiant($matricule, $nom, $prenom, $pseudo, $motdepasse, $filiere);
-if($etudiant->addEtudiant()){
+if($etudiant->addEtudiant($etudiant)){
     echo 'succes';
 }else{
     echo 'error';

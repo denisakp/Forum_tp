@@ -38,24 +38,26 @@ class Etudiant {
 
     /**
      * Constructeur de la classe Etudiant
+     * 
+     * 
      */
 
     public function __construct(){
-        $args = func_get_args(); //any function that calls this method can take an arbitrary number of parameters
+        $args = func_get_args(); //Toute fonction qui appelle cette méthode peut prendre arbitrairemrnt un nombre de paramètres définis
+        
         switch(func_num_args())
         {
-            //delegate to helper methods
-        case 0:
-            $this->construct0();
-        break;
-        case 1:
-            $this->construct1($args[0]);
-        break;
-        case 6:
-            $this->construct2($args[0], $args[1], $args[2], $args[3], $args[4], $args[5]);
-        break;
-        default:
-            trigger_error('Nombre d\'arguments incorrect pour la classe Etudiant::__construct', E_USER_WARNING);
+            case 0:
+                $this->construct0(); //Aucun paramètre (utilisé pour les métodes read)
+            break;
+            case 1:
+                $this->construct1($args[0]); //un seul paramètre (utilisé pour les méthodes de recherches)
+            break;
+            case 6:
+                $this->construct2($args[0], $args[1], $args[2], $args[3], $args[4], $args[5]); //Tous les paramètres (utilisé pour les autres méthodes)
+            break;
+            default:
+                trigger_error('Nombre d\'arguments incorrect pour la classe Etudiant::__construct', E_USER_WARNING);
         }
     }
 

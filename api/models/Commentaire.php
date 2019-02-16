@@ -12,7 +12,9 @@
      private $matricule;
      private $id_disc;
 
-     public function __construct(){}
+     public function __construct(){
+         
+     }
 
      public function __set($property, $value){
         $this->$property = $value;

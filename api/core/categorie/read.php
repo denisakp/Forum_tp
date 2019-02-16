@@ -5,6 +5,8 @@
   include_once '../../config/Database.php';
   include_once '../../models/Categorie.php';
 
+  $id = NULL;
+  $nom = NULL;
   $categorie = new Categorie($id, $nom);
 
   $res = $categorie->readAllCategorie();

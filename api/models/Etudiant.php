@@ -253,9 +253,9 @@ class Etudiant {
      * @return boolean 
      */
 
-     public function deleteEtudiant(Etudiant $etudiant, $matricule){
+     public function deleteEtudiant(Etudiant $etudiant){
         $con = Database::connect();
-        $sql = 'DELETE FROM '.$this->table.' WHERE matricule = ? ';
+        $sql = 'UPDATE '.$this->table.' SET etat = 0 WHERE matricule = ? ';
 
         $stmt = $con->prepare($sql);
         $stmt-> bindParam(1, $this->matricule);

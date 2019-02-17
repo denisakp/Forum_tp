@@ -11,7 +11,7 @@
 
   $res = $categorie->readAllCategorie();
   if($res){
-      echo "succes";
+      echo json_encode($res);
   }else{
       echo 'error';
   }

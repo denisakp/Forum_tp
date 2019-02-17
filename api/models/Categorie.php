@@ -51,12 +51,11 @@ class Categorie{
      */
     public function readAllCategorie(){
         $con = Database::connect();
-        $sql = "SELECT libelle_cat FROM categorie_disc WHERE etat = '1' ";
+        $sql = "SELECT id_cat, libelle_cat FROM categorie_disc WHERE etat = '1' ";
         $stmt = $con->query($sql);
         
         if($stmt){
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            echo json_encode ($data);
             return true;
         }else{
             return false;

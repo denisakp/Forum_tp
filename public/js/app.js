@@ -1,3 +1,8 @@
+window.onload = init();
+function init(){
+    listeCategorie();
+}
+
 function listeCategorie(){
     var xhr = new XMLHttpRequest();
     var method = "GET";
@@ -56,6 +61,5 @@ function listediscussion(){
             }
         }
     }
-
 
 }

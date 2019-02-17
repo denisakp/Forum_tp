@@ -151,6 +151,7 @@ class Etudiant {
             echo json_encode($data);
             return true;
         }else{
+            print_r($con->errorInfo());
             return false;
         }
     } 

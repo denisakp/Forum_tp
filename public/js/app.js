@@ -4,27 +4,25 @@ function listeCategorie(){
     var url = "http://localhost:3000/api/core/categorie/read.php";
     
     xhr.open(method, url, true);
-    xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
-    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-    xhr.setRequestHeader('Content-type', 'application/json');
-    xhr.send();
     xhr.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status == 200){
+        if(xhr.readyState == 4 && xhr.status == 200){
             var data = JSON.parse(this.responseText);
             console.log(data);
             var html = "";
             for(var el = 0; el<data.length;el++){
                 var id = data[el].id_cat;
-                var nom = data[el].libele_cat;
+                var nom = data[el].libelle_cat;
                 html += '<div class="divline"></div>';
                 html += '<div class="blocktxt">';
                 html += '<ul class="cats">';
                     html += '<li><a href="#">'+ nom +'<span class="badge pull-right">20</span></a></li>';
                 html += "</ul>";
+                html+= '</div>'
             }
             document.getElementById("cat_disc").innerHTML = html;
         }
-    }
+    };
+    xhr.send(false);
 }
 
 function listediscussion(){
@@ -48,10 +46,13 @@ function listediscussion(){
                 let date = data[el].date_disc;
 
                 html += '<div class="post">';
-                    html += '<div class="wrap-ut pull-left">';
-                    html += '<div class="userinfo pull-left">';
-                        html+= ' <div class="avatar">';
-
+                    html += '<div class="wrap-ut pull-left"><div class="userinfo pull-left">';
+                        html+= '<div class="avatar">';
+                        html+= '<img src="public/images/avatar.jpg" alt="" />';
+                        html+= '<div class="status green">&nbsp;</div>';
+                    html+= '</div>';
+                    html+= '<div class="icons"><img src="public/images/icon1.jpg" alt="" /><img src="public/images/icon4.jpg" alt="" /></div>'
+                    html+= '</div>';
             }
         }
     }

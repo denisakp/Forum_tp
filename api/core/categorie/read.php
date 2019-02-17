@@ -10,8 +10,3 @@
   $categorie = new Categorie($id, $nom);
 
   $res = $categorie->readAllCategorie();
-  if($res){
-      echo json_encode($res);
-  }else{
-      echo 'error';
-  }

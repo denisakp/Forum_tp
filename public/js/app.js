@@ -35,10 +35,6 @@ function listediscussion(){
     let url= "http://localhost:3000/api/core/discussion/read.php";
     let method = "GET";
     xhr.open(method, url, true);
-    xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
-    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-    xhr.setRequestHeader('Content-type', 'application/json');
-    xhr.send();
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
             let data = JSON.parse(this.responseText);
@@ -50,16 +46,17 @@ function listediscussion(){
                 let contenu = data[el].contenu_disc;
                 let date = data[el].date_disc;
 
-                html += '<div class="post">';
-                    html += '<div class="wrap-ut pull-left"><div class="userinfo pull-left">';
-                        html+= '<div class="avatar">';
-                        html+= '<img src="public/images/avatar.jpg" alt="" />';
-                        html+= '<div class="status green">&nbsp;</div>';
-                    html+= '</div>';
-                    html+= '<div class="icons"><img src="public/images/icon1.jpg" alt="" /><img src="public/images/icon4.jpg" alt="" /></div>'
-                    html+= '</div>';
+                html += '<div class="wrap-ut pull-left">';
+                html+= '<div class="userinfo pull-left">';
+                    html+= '<div class="avatar">';
+                    html+= '<img src="public/images/avatar.jpg" alt="" />';
+                    html+= '<div class="status green">&nbsp;</div>';
+                html+= '</div>';
+                html+= '<div class="icons"><img src="public/images/icon1.jpg" alt="" /><img src="public/images/icon4.jpg" alt="" /></div>'
+                html+= '</div>';
             }
+            document.getElementById('list_disc');
         }
-    }
-
+    };
+    xhr.send();
 }

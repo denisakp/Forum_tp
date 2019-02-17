@@ -56,8 +56,10 @@ class Categorie{
         
         if($stmt){
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            echo json_encode($data);
             return true;
         }else{
+            print_r($con->errorInfo());
             return false;
         }
     }

@@ -12,16 +12,12 @@ function listeCategorie(){
             for(var el = 0; el<data.length;el++){
                 var id = data[el].id_cat;
                 var nom = data[el].libelle_cat;
-                var divline = document.createElement("div");
-                divline.classList.add('divline');
-                var blocktxt = document.createElement("div");
-                blocktxt.classList.add("blocktxt");
-                var cats = document.createElement("ul");
-                cats.classList.add('cats');
-                var li = document.createElement("li");
-                li.innerHTML = '<a href="#">'+nom+'<span class="badge pull-right">20</span></a>';
-                cats.appendChild(li);
-                blocktxt.appendChild(cats);
+                html += '<div class="divline"></div>';
+                html += '<div class="blocktxt">';
+                html += '<ul class="cats">';
+                    html += '<li><a href="#">'+ nom +'<span class="badge pull-right">20</span></a></li>';
+                html += "</ul>";
+                html+= '</div>'
             }
             document.getElementById("cat_disc").innerHTML = html;
         }
